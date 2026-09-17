@@ -29,6 +29,30 @@ src/
   examples/         Sanitized reference implementations
 ```
 
+## Implemented Architecture
+
+### Typed Event Bus
+
+`src/core/event-bus.ts` provides typed publish/subscribe communication so world systems can react to interactions and lifecycle events without direct references to each other.
+
+### World Event Contract
+
+`src/core/world-events.ts` defines shared player, interaction, lifecycle, and state-change payloads.
+
+### World State
+
+`src/core/world-state.ts` provides a typed observable state store that publishes changes through the event architecture.
+
+### Finite State Machines
+
+`src/core/state-machine.ts` models explicit experience transitions and rejects invalid state/event combinations.
+
+### Examples
+
+`EventDrivenDoor` demonstrates decoupled event handling. `StatefulDoor` extends that example into a multi-stage closed/opening/open/closing/locked lifecycle.
+
+See `docs/EVENT_ARCHITECTURE.md` and `docs/STATE_ARCHITECTURE.md` for design details.
+
 ## Development Philosophy
 
 The examples in this repository emphasize separation of concerns, explicit state transitions, event-driven communication, reusable components, and maintainable TypeScript. World behavior should remain understandable as an experience grows rather than becoming a collection of tightly coupled scripts.
@@ -43,10 +67,10 @@ This repository does **not** claim to be a Unity, Unreal Engine, or native Meta 
 
 Initial increments will establish:
 
-1. World architecture and scripting conventions.
-2. A typed event-bus pattern for decoupled world behavior.
-3. Interaction and state-machine examples.
-4. Reusable experience components.
+1. ~~World architecture and scripting conventions.~~
+2. ~~A typed event-bus pattern for decoupled world behavior.~~
+3. ~~Interaction and state-machine examples.~~
+4. Horizon-facing interaction adapters and reusable experience components.
 5. Spatial UX and performance documentation.
 6. Automated validation for portable TypeScript logic where practical.
 
