@@ -3,6 +3,7 @@ import * as hz from 'horizon/core';
 class lobbyController extends hz.Component<typeof lobbyController> {
   static propsDefinition = {
     mainLight: { type: hz.PropTypes.Entity },
+    accentLight: { type: hz.PropTypes.Entity },
   };
 
   start() {
