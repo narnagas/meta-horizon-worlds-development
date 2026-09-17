@@ -4,6 +4,8 @@ class lobbyController extends hz.Component<typeof lobbyController> {
   static propsDefinition = {};
 
   start() {
+    console.log('[Lobby] lobbyController started');
+
     this.connectCodeBlockEvent(
       this.entity,
       hz.CodeBlockEvents.OnPlayerEnterWorld,
