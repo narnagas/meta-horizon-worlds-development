@@ -24,6 +24,7 @@ class lobbyController extends hz.Component<typeof lobbyController> {
 
       console.log('[Lobby] Accent light assigned');
       accentLight.enabled.set(false);
+      accentLight.intensity.set(0);
       console.log('[Lobby] Accent light disabled');
     } else {
       console.warn('[Lobby] Accent light is not assigned');
@@ -53,8 +54,24 @@ class lobbyController extends hz.Component<typeof lobbyController> {
       if (this.props.accentLight) {
         const accentLight = this.props.accentLight.as(hz.DynamicLightGizmo);
 
+        accentLight.intensity.set(0);
         accentLight.enabled.set(true);
-        console.log('[Lobby] Accent light enabled');
+        console.log('[Lobby] Accent light fade started');
+
+        const fadeSteps = 5;
+        const fadeStepMs = 200;
+        const targetIntensity = 1;
+
+        for (let step = 1; step <= fadeSteps; step += 1) {
+          this.async.setTimeout(() => {
+            const intensity = (targetIntensity * step) / fadeSteps;
+            accentLight.intensity.set(intensity);
+
+            if (step === fadeSteps) {
+              console.log('[Lobby] Accent light fade complete');
+            }
+          }, step * fadeStepMs);
+        }
       }
     }, 2500);
   };
