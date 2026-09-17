@@ -1,0 +1,15 @@
+{
+  "name": "meta-horizon-worlds-development",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portable TypeScript architecture and validation for Meta Horizon Worlds reference patterns.",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "validate": "npm run typecheck && npm test"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}
