@@ -21,7 +21,7 @@ This repository documents reusable engineering patterns for spatial experiences,
 ## Repository Structure
 
 ```text
-docs/               Architecture, design notes, and spatial UX guidance
+docs/               Architecture, integration, performance, and spatial UX guidance
 src/
   core/             Shared world infrastructure and reusable primitives
   interactions/     Player/object interaction patterns
@@ -47,15 +47,23 @@ src/
 
 `src/core/state-machine.ts` models explicit experience transitions and rejects invalid state/event combinations.
 
+### Interaction Adapter
+
+`src/interactions/interaction-adapter.ts` separates platform-facing interaction sources from the portable world event architecture. The manual source and flow example keep the adapter testable outside the Horizon runtime.
+
+### Reusable Object Pool
+
+`src/core/object-pool.ts` provides bounded, reusable resource management with prewarming, acquire/release ownership, reset hooks, and allocation limits. It is designed to support performance-conscious Horizon-facing adapters without inventing platform APIs.
+
 ### Examples
 
-`EventDrivenDoor` demonstrates decoupled event handling. `StatefulDoor` extends that example into a multi-stage closed/opening/open/closing/locked lifecycle.
+`EventDrivenDoor` demonstrates decoupled event handling. `StatefulDoor` extends that example into a multi-stage closed/opening/open/closing/locked lifecycle. `HorizonInteractionFlow` demonstrates how an interaction source can feed the shared event system.
 
-See `docs/EVENT_ARCHITECTURE.md` and `docs/STATE_ARCHITECTURE.md` for design details.
+See `docs/EVENT_ARCHITECTURE.md`, `docs/STATE_ARCHITECTURE.md`, `docs/HORIZON_INTEGRATION.md`, and `docs/PERFORMANCE.md` for design details.
 
 ## Development Philosophy
 
-The examples in this repository emphasize separation of concerns, explicit state transitions, event-driven communication, reusable components, and maintainable TypeScript. World behavior should remain understandable as an experience grows rather than becoming a collection of tightly coupled scripts.
+The examples in this repository emphasize separation of concerns, explicit state transitions, event-driven communication, reusable components, bounded resource use, and maintainable TypeScript. World behavior should remain understandable as an experience grows rather than becoming a collection of tightly coupled scripts.
 
 ## Portfolio Scope
 
@@ -70,9 +78,10 @@ Initial increments will establish:
 1. ~~World architecture and scripting conventions.~~
 2. ~~A typed event-bus pattern for decoupled world behavior.~~
 3. ~~Interaction and state-machine examples.~~
-4. Horizon-facing interaction adapters and reusable experience components.
-5. Spatial UX and performance documentation.
-6. Automated validation for portable TypeScript logic where practical.
+4. ~~Horizon-facing interaction adapters and reusable experience components.~~
+5. ~~Performance-conscious resource reuse and guidance.~~
+6. Spatial UX/accessibility guidance and richer experience-system examples.
+7. Continue automated validation for portable TypeScript logic.
 
 ## Author
 
