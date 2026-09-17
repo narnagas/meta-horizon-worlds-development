@@ -1,5 +1,3 @@
-export type EventMap = Record<string, unknown>;
-
 export type EventHandler<TPayload> = (payload: TPayload) => void;
 
 export interface Subscription {
@@ -9,11 +7,11 @@ export interface Subscription {
 /**
  * Lightweight typed event bus for decoupling world systems.
  *
- * The implementation intentionally has no dependency on Horizon APIs so the
- * behavior can be validated outside the world editor and adapted at the
- * Horizon integration boundary.
+ * TEvents is constrained to an object rather than Record<string, unknown> so
+ * finite event-map interfaces do not need an unsafe catch-all index signature.
+ * Known event keys and payloads remain fully type checked by keyof TEvents.
  */
-export class EventBus<TEvents extends EventMap> {
+export class EventBus<TEvents extends object> {
   private readonly handlers = new Map<keyof TEvents, Set<EventHandler<unknown>>>();
 
   on<TKey extends keyof TEvents>(
