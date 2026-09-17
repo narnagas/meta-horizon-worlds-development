@@ -8,6 +8,12 @@ class lobbyController extends hz.Component<typeof lobbyController> {
   start() {
     console.log('[Lobby] lobbyController started');
 
+    if (this.props.mainLight) {
+      console.log('[Lobby] Main light assigned');
+    } else {
+      console.warn('[Lobby] Main light is not assigned');
+    }
+
     this.connectCodeBlockEvent(
       this.entity,
       hz.CodeBlockEvents.OnPlayerEnterWorld,
