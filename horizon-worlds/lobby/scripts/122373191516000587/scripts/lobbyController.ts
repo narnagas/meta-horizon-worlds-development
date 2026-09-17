@@ -10,6 +10,7 @@ class lobbyController extends hz.Component<typeof lobbyController> {
 
     if (this.props.mainLight) {
       console.log('[Lobby] Main light assigned');
+      this.props.mainLight.visible.set(false);
     } else {
       console.warn('[Lobby] Main light is not assigned');
     }
@@ -23,6 +24,11 @@ class lobbyController extends hz.Component<typeof lobbyController> {
 
   private onPlayerEnterWorld = (player: hz.Player) => {
     console.log(`Player entered the lobby: ${player.id}`);
+
+    if (this.props.mainLight) {
+      this.props.mainLight.visible.set(true);
+      console.log('[Lobby] Main light shown');
+    }
   };
 }
 
