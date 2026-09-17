@@ -9,8 +9,11 @@ class lobbyController extends hz.Component<typeof lobbyController> {
     console.log('[Lobby] lobbyController started');
 
     if (this.props.mainLight) {
+      const mainLight = this.props.mainLight.as(hz.DynamicLightGizmo);
+
       console.log('[Lobby] Main light assigned');
-      this.props.mainLight.visible.set(false);
+      mainLight.enabled.set(false);
+      console.log('[Lobby] Main light disabled');
     } else {
       console.warn('[Lobby] Main light is not assigned');
     }
@@ -28,8 +31,10 @@ class lobbyController extends hz.Component<typeof lobbyController> {
 
     this.async.setTimeout(() => {
       if (this.props.mainLight) {
-        this.props.mainLight.visible.set(true);
-        console.log('[Lobby] Main light shown');
+        const mainLight = this.props.mainLight.as(hz.DynamicLightGizmo);
+
+        mainLight.enabled.set(true);
+        console.log('[Lobby] Main light enabled');
       }
     }, 1500);
   };
