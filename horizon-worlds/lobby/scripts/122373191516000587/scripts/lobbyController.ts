@@ -24,11 +24,14 @@ class lobbyController extends hz.Component<typeof lobbyController> {
 
   private onPlayerEnterWorld = (player: hz.Player) => {
     console.log(`Player entered the lobby: ${player.id}`);
+    console.log('[Lobby] Waiting to activate main light');
 
-    if (this.props.mainLight) {
-      this.props.mainLight.visible.set(true);
-      console.log('[Lobby] Main light shown');
-    }
+    this.async.setTimeout(() => {
+      if (this.props.mainLight) {
+        this.props.mainLight.visible.set(true);
+        console.log('[Lobby] Main light shown');
+      }
+    }, 1500);
   };
 }
 
