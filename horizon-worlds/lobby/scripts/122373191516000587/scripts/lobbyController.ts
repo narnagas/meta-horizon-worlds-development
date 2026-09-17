@@ -1,7 +1,9 @@
 import * as hz from 'horizon/core';
 
 class lobbyController extends hz.Component<typeof lobbyController> {
-  static propsDefinition = {};
+  static propsDefinition = {
+    mainLight: { type: hz.PropTypes.Entity },
+  };
 
   start() {
     console.log('[Lobby] lobbyController started');
