@@ -19,7 +19,7 @@ export class SequencePuzzle {
   start(): void {
     if (this.subscription) return;
     this.subscription = this.events.on('interaction:completed', ({ interactionId }) => {
-      if (!this.sequence.includes(interactionId) || this.state === 'solved') return;
+      if (!this.sequence.includes(interactionId) || this.state === 'solved' || this.state === 'failed') return;
       this.accept(interactionId);
     });
   }
@@ -48,7 +48,6 @@ export class SequencePuzzle {
         expectedInteractionId: expected ?? '',
         receivedInteractionId: interactionId,
       });
-      this.reset();
       return;
     }
 
@@ -61,8 +60,6 @@ export class SequencePuzzle {
       interactionId,
     });
 
-    if (this.state === 'solved') {
-      this.events.emit('puzzle:solved', { puzzleId: this.puzzleId });
-    }
+    if (this.state === 'solved') this.events.emit('puzzle:solved', { puzzleId: this.puzzleId });
   }
 }
