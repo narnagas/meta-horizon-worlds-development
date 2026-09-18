@@ -4,7 +4,7 @@ class lobbyController extends hz.Component<typeof lobbyController> {
   static propsDefinition = {
     mainLight: { type: hz.PropTypes.Entity },
     accentLight: { type: hz.PropTypes.Entity },
-    lobbyMainLightTrigger: { type: hz.PropTypes.Entity },
+    lobbyMeshButtonTrigger: { type: hz.PropTypes.Entity },
     lobbyMeshButton: { type: hz.PropTypes.Entity },
   };
 
@@ -40,16 +40,16 @@ class lobbyController extends hz.Component<typeof lobbyController> {
       this.onPlayerEnterWorld,
     );
 
-    if (this.props.lobbyMainLightTrigger) {
+    if (this.props.lobbyMeshButtonTrigger) {
       this.connectCodeBlockEvent(
-        this.props.lobbyMainLightTrigger,
+        this.props.lobbyMeshButtonTrigger,
         hz.CodeBlockEvents.OnPlayerEnterTrigger,
-        this.onPlayerEnterLightControlTrigger,
+        this.onPlayerEnterMeshButtonTrigger,
       );
 
-      console.log('[Lobby] Main light control trigger connected');
+      console.log('[Lobby] Mesh button control trigger connected');
     } else {
-      console.warn('[Lobby] Main light control trigger is not assigned');
+      console.warn('[Lobby] Mesh button control trigger is not assigned');
     }
   }
 
@@ -91,7 +91,7 @@ class lobbyController extends hz.Component<typeof lobbyController> {
       }
     }, 2500);
   };
-  private onPlayerEnterLightControlTrigger = (player: hz.Player) => {
+  private onPlayerEnterMeshButtonTrigger = (player: hz.Player) => {
     if (this.isButtonAnimating) return;
 
     this.isButtonAnimating = true;
