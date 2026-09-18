@@ -5,7 +5,10 @@ class lobbyController extends hz.Component<typeof lobbyController> {
     mainLight: { type: hz.PropTypes.Entity },
     accentLight: { type: hz.PropTypes.Entity },
     lobbyMainLightTrigger: { type: hz.PropTypes.Entity },
+    lobbyMeshButton: { type: hz.PropTypes.Entity },
   };
+
+  private isButtonAnimating: boolean = false;
 
   start() {
     console.log('[Lobby] lobbyController started');
@@ -89,6 +92,11 @@ class lobbyController extends hz.Component<typeof lobbyController> {
     }, 2500);
   };
   private onPlayerEnterLightControlTrigger = (player: hz.Player) => {
+    if (this.isButtonAnimating) return;
+
+    this.isButtonAnimating = true;
+    this.animateButtonPush();
+
     console.log(`[Lobby] Light control trigger entered by player: ${player.id}`);
 
     if (!this.props.mainLight) {
@@ -105,6 +113,31 @@ class lobbyController extends hz.Component<typeof lobbyController> {
       `[Lobby] Main light toggled ${isEnabled ? 'OFF' : 'ON'} by player: ${player.id}`,
     );
   };
+
+  private animateButtonPush() {
+    if (!this.props.lobbyMeshButton) {
+      this.isButtonAnimating = false;
+      return;
+    }
+
+    const mesh = this.props.lobbyMeshButton;
+    const pushInward = new hz.Vec3(0, 0, -0.005);
+    const pushOutward = new hz.Vec3(0, 0, 0.005);
+
+    mesh.position.set(mesh.position.get().add(pushInward));
+
+    this.async.setTimeout(() => {
+      mesh.position.set(mesh.position.get().add(pushOutward));
+
+      this.async.setTimeout(() => {
+        this.isButtonAnimating = false;
+      }, 100);
+    }, 150);
+  }
+
+  private executeMeshButtonAction(player: hz.Player) {
+    console.log(`[Lobby] Executing separate mechanical event for ${player.id}`);
+  }
 
 }
 
