@@ -90,6 +90,20 @@ class lobbyController extends hz.Component<typeof lobbyController> {
   };
   private onPlayerEnterLightControlTrigger = (player: hz.Player) => {
     console.log(`[Lobby] Light control trigger entered by player: ${player.id}`);
+
+    if (!this.props.mainLight) {
+      console.warn('[Lobby] Main light is not assigned');
+      return;
+    }
+
+    const mainLight = this.props.mainLight.as(hz.DynamicLightGizmo);
+    const isEnabled = mainLight.enabled.get();
+
+    mainLight.enabled.set(!isEnabled);
+
+    console.log(
+      `[Lobby] Main light toggled ${isEnabled ? 'OFF' : 'ON'} by player: ${player.id}`,
+    );
   };
 
 }
