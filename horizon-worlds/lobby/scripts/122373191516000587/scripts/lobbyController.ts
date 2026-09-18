@@ -97,21 +97,9 @@ class lobbyController extends hz.Component<typeof lobbyController> {
     this.isButtonAnimating = true;
     this.animateButtonPush();
 
-    console.log(`[Lobby] Light control trigger entered by player: ${player.id}`);
+    console.log(`[Lobby] Mesh button trigger entered by player: ${player.id}`);
 
-    if (!this.props.mainLight) {
-      console.warn('[Lobby] Main light is not assigned');
-      return;
-    }
-
-    const mainLight = this.props.mainLight.as(hz.DynamicLightGizmo);
-    const isEnabled = mainLight.enabled.get();
-
-    mainLight.enabled.set(!isEnabled);
-
-    console.log(
-      `[Lobby] Main light toggled ${isEnabled ? 'OFF' : 'ON'} by player: ${player.id}`,
-    );
+    this.executeMeshButtonAction(player);
   };
 
   private animateButtonPush() {
