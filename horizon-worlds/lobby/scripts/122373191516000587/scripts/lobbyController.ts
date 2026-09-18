@@ -123,9 +123,24 @@ class lobbyController extends hz.Component<typeof lobbyController> {
     }, 150);
   }
 
-  private executeMeshButtonAction(player: hz.Player) {
-    console.log(`[Lobby] Executing separate mechanical event for ${player.id}`);
+private executeMeshButtonAction(player: hz.Player) {
+  if (!this.props.accentLight) {
+    console.warn('[Lobby] Accent light is not assigned');
+    return;
   }
+
+  const accentLight =
+    this.props.accentLight.as(hz.DynamicLightGizmo);
+
+  const isEnabled =
+    accentLight.enabled.get();
+
+  accentLight.enabled.set(!isEnabled);
+
+  console.log(
+    `[Lobby] Accent light ${!isEnabled ? 'enabled' : 'disabled'} by player: ${player.id}`
+  );
+}
 
 }
 
