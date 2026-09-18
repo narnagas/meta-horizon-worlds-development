@@ -36,6 +36,18 @@ class lobbyController extends hz.Component<typeof lobbyController> {
       hz.CodeBlockEvents.OnPlayerEnterWorld,
       this.onPlayerEnterWorld,
     );
+
+    if (this.props.lobbyMainLightTrigger) {
+      this.connectCodeBlockEvent(
+        this.props.lobbyMainLightTrigger,
+        hz.CodeBlockEvents.OnPlayerEnterTrigger,
+        this.onPlayerEnterLightControlTrigger,
+      );
+
+      console.log('[Lobby] Main light control trigger connected');
+    } else {
+      console.warn('[Lobby] Main light control trigger is not assigned');
+    }
   }
 
   private onPlayerEnterWorld = (player: hz.Player) => {
@@ -76,6 +88,10 @@ class lobbyController extends hz.Component<typeof lobbyController> {
       }
     }, 2500);
   };
+  private onPlayerEnterLightControlTrigger = (player: hz.Player) => {
+    console.log(`[Lobby] Light control trigger entered by player: ${player.id}`);
+  };
+
 }
 
 hz.Component.register(lobbyController);
